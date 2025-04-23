@@ -15,7 +15,7 @@ await channel.QueueDeclareAsync(
     arguments: null);
 
 
-for (int i = 0; i < 10; i++)
+for (int i = 0; i < 20; i++)
 {
     var message = $"[{DateTime.UtcNow}] - {Guid.CreateVersion7()}";
     var body = Encoding.UTF8.GetBytes(message);
