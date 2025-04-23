@@ -1,28 +1,28 @@
 ﻿using RabbitMQ.Client;
 using System.Text;
 
-const string Queue_Name = "message";
+const string queueName = "message";
 
 var factory = new ConnectionFactory { HostName = "localhost" };
-using var connection = await factory.CreateConnectionAsync();
-using var channel = await connection.CreateChannelAsync();
+await using var connection = await factory.CreateConnectionAsync();
+await using var channel = await connection.CreateChannelAsync();
 
 await channel.QueueDeclareAsync(
-    queue: Queue_Name,
+    queue: queueName,
     durable: true,
     exclusive: false,
     autoDelete: false,
     arguments: null);
 
 
-for (int i = 0; i < 20; i++)
+for (var i = 0; i < 20; i++)
 {
     var message = $"[{DateTime.UtcNow}] - {Guid.CreateVersion7()}";
     var body = Encoding.UTF8.GetBytes(message);
 
     await channel.BasicPublishAsync(
         exchange: string.Empty,
-        routingKey: Queue_Name,
+        routingKey: queueName,
         mandatory: true,
         basicProperties: new BasicProperties { Persistent = true },
         body: body);
