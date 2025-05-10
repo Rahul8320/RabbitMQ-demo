@@ -2,7 +2,7 @@
 using RabbitMQ.Client.Events;
 using System.Text;
 
-const string queueName = "message.one";
+const string queueName = "message.two";
 const string exchangeName = "messages.exchange";
 
 var factory = new ConnectionFactory { HostName = "localhost" };
@@ -24,7 +24,7 @@ await channel.QueueDeclareAsync(
 
 await channel.QueueBindAsync(queueName, exchangeName, string.Empty);
 
-Console.WriteLine("[Consumer One] Waiting for messages");
+Console.WriteLine("[Consumer Two] Waiting for messages");
 await Task.Delay(TimeSpan.FromSeconds(3));
 
 var consumer = new AsyncEventingBasicConsumer(channel);
