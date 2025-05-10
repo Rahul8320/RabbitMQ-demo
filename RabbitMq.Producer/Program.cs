@@ -14,10 +14,11 @@ await channel.QueueDeclareAsync(
     autoDelete: false,
     arguments: null);
 
+await Task.Delay(TimeSpan.FromSeconds(10));
 
-for (var i = 0; i < 20; i++)
+for (var i = 1; i <= 10; i++)
 {
-    var message = $"[{DateTime.UtcNow}] - {Guid.CreateVersion7()}";
+    var message = $"[{DateTime.Now}] - [{i}] {Guid.CreateVersion7()}";
     var body = Encoding.UTF8.GetBytes(message);
 
     await channel.BasicPublishAsync(
@@ -29,5 +30,5 @@ for (var i = 0; i < 20; i++)
 
     Console.WriteLine($"Sent: {message}");
 
-    await Task.Delay(3000);
+    await Task.Delay(TimeSpan.FromSeconds(10));
 }

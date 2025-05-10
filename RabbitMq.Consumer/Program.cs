@@ -16,6 +16,7 @@ await channel.QueueDeclareAsync(
     arguments: null);
 
 Console.WriteLine("Waiting for messages");
+await Task.Delay(TimeSpan.FromSeconds(3));
 
 var consumer = new AsyncEventingBasicConsumer(channel);
 
